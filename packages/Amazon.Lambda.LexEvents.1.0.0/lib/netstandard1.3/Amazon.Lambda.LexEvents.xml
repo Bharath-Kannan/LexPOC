@@ -1,0 +1,244 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Amazon.Lambda.LexEvents</name>
+    </assembly>
+    <members>
+        <member name="T:Amazon.Lambda.LexEvents.LexEvent">
+            <summary>
+            This class represents the input event from Amazon Lex. It used as the input parameter
+            for Lambda functions.
+            http://docs.aws.amazon.com/lex/latest/dg/lambda-input-response-format.html
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexEvent.MessageVersion">
+            <summary>
+            The version of the message that identifies the format of the event data going into the 
+            Lambda function and the expected format of the response from a Lambda function.
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexEvent.InvocationSource">
+            <summary>
+            To indicate why Amazon Lex is invoking the Lambda function
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexEvent.UserId">
+            <summary>
+            This value is provided by the client application. Amazon Lex passes it to the Lambda function.
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexEvent.SessionAttributes">
+            <summary>
+            Application-specific session attributes that the client sent in the request. If you want 
+            Amazon Lex to include them in the response to the client, your Lambda function should 
+            send these back to Amazon Lex in response.
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexEvent.Bot">
+            <summary>
+            The Lex bot invoking the Lambda function
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexEvent.OutputDialogMode">
+            <summary>
+            For each user input, the client sends the request to Amazon Lex using one of the runtime API operations, 
+            PostContent or PostText. From the API request parameters, Amazon Lex determines whether the response 
+            to the client (user) is text or voice, and sets this field accordingly.
+            <para>
+            The Lambda function can use this information to generate an appropriate message. 
+            For example, if the client expects a voice response, your Lambda function could return 
+            Speech Synthesis Markup LanguageSpeech Synthesis Markup Language (SSML) instead of text.
+            </para>
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexEvent.CurrentIntent">
+            <summary>
+            Provides the intent name, slots, and confirmationStatus fields.
+            </summary>
+        </member>
+        <member name="T:Amazon.Lambda.LexEvents.LexEvent.LexCurrentIntent">
+            <summary>
+            The class representing the current intent for the Lambda function to process.
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexEvent.LexCurrentIntent.Name">
+            <summary>
+            The intent's name
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexEvent.LexCurrentIntent.Slots">
+            <summary>
+            List of slots that are configured for the intent and values that are recognized by 
+            Amazon Lex in the user conversation from the beginning. Otherwise, the values are null.
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexEvent.LexCurrentIntent.ConfirmationStatus">
+            <summary>
+            The ConfirmationStatus provides the user response to a confirmation prompt, if there is one. 
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexEvent.LexCurrentIntent.InputTranscript">
+            <summary>
+            The text used to process the request.
+            </summary>
+        </member>
+        <member name="T:Amazon.Lambda.LexEvents.LexEvent.LexBot">
+            <summary>
+            The class identifies the Lex bot that is invoking the Lambda function.
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexEvent.LexBot.Name">
+            <summary>
+            The name of the Lex bot
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexEvent.LexBot.Alias">
+            <summary>
+            The alias of the Lex bot
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexEvent.LexBot.Version">
+            <summary>
+            The version of the Lex bot
+            </summary>
+        </member>
+        <member name="T:Amazon.Lambda.LexEvents.LexResponse">
+            <summary>
+            This class is used as the return for AWS Lambda functions that are invoked by Lex to handle Bot interactions.
+            http://docs.aws.amazon.com/lex/latest/dg/lambda-input-response-format.html
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexResponse.SessionAttributes">
+            <summary>
+            Application-specific session attributes. This is an optional field.
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexResponse.DialogAction">
+            <summary>
+            This is the only field that is required. The value of DialogAction.Type directs 
+            Amazon Lex to the next course of action, and describes what to expect from the user 
+            after Amazon Lex returns a response to the client.
+            </summary>\
+        </member>
+        <member name="T:Amazon.Lambda.LexEvents.LexResponse.LexDialogAction">
+            <summary>
+            The class representing the dialog action.
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexResponse.LexDialogAction.Type">
+            <summary>
+            The type of action for Lex to take with the response from the Lambda function.
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexResponse.LexDialogAction.FulfillmentState">
+            <summary>
+            The state of the fullfillment. "Fulfilled" or "Failed"
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexResponse.LexDialogAction.Message">
+            <summary>
+            The message to be sent to the user.
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexResponse.LexDialogAction.IntentName">
+            <summary>
+            The intent name you want to confirm or elicit.
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexResponse.LexDialogAction.Slots">
+            <summary>
+            The values for all of the slots when response is of type "Delegate".
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexResponse.LexDialogAction.SlotToElicit">
+            <summary>
+            The slot to elicit when the Type is "ElicitSlot"
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexResponse.LexDialogAction.ResponseCard">
+            <summary>
+            The response card provides information back to the bot to display for the user.
+            </summary>
+        </member>
+        <member name="T:Amazon.Lambda.LexEvents.LexResponse.LexMessage">
+            <summary>
+            The class represents the message that the bot will use.
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexResponse.LexMessage.ContentType">
+            <summary>
+            The content type of the message. PlainText or SSML
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexResponse.LexMessage.Content">
+            <summary>
+            The message to be asked to the user by the bot.
+            </summary>
+        </member>
+        <member name="T:Amazon.Lambda.LexEvents.LexResponse.LexResponseCard">
+            <summary>
+            The class representing the response card sent back to the user.
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexResponse.LexResponseCard.Version">
+            <summary>
+            The version of the response card.
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexResponse.LexResponseCard.ContentType">
+            <summary>
+            The content type of the response card. The default is "application/vnd.amazonaws.card.generic".
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexResponse.LexResponseCard.GenericAttachments">
+            <summary>
+            The list of attachments sent back with the response card.
+            </summary>
+        </member>
+        <member name="T:Amazon.Lambda.LexEvents.LexResponse.LexGenericAttachments">
+            <summary>
+            The class representing generic attachments.
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexResponse.LexGenericAttachments.Title">
+            <summary>
+            The card's title.
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexResponse.LexGenericAttachments.SubTitle">
+            <summary>
+            The card's sub title.
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexResponse.LexGenericAttachments.ImageUrl">
+            <summary>
+            URL to an image to be shown.
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexResponse.LexGenericAttachments.AttachmentLinkUrl">
+            <summary>
+            URL of the attachment to be associated with the card.
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexResponse.LexGenericAttachments.Buttons">
+            <summary>
+            The list of buttons to be displayed with the response card.
+            </summary>
+        </member>
+        <member name="T:Amazon.Lambda.LexEvents.LexResponse.LexButton">
+            <summary>
+            The class representing a button in the response card.
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexResponse.LexButton.Text">
+            <summary>
+            The text for the button.
+            </summary>
+        </member>
+        <member name="P:Amazon.Lambda.LexEvents.LexResponse.LexButton.Value">
+            <summary>
+            The value of the button sent back to the server.
+            </summary>
+        </member>
+    </members>
+</doc>

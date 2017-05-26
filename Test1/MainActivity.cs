@@ -14,14 +14,14 @@ namespace Test1
         Button _start;
         Button _stop;
 
-
+        byte[] audioBuffer = new byte[100000];
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
             _start = FindViewById<Button>(Resource.Id.start);
             _stop = FindViewById<Button>(Resource.Id.stop);
-            byte[] audioBuffer = new byte[100000];
+
             var audRecorder = new AudioRecord(
               AudioSource.Mic,
               11025,
@@ -32,23 +32,6 @@ namespace Test1
 
             _start.Click += delegate
            {
-               //if (audRecorder.RecordingState == RecordState.Recording)
-               //{
-               //    _start.Text = "START RECORDING";
-               //    audRecorder.Stop();
-               //    var response_audio = await Authenticator.Main(audioBuffer);
-               //    PlayAudioTrack(response_audio);
-
-               //}
-
-               //else
-               //{
-
-               //    _start.Text = "STOP RECORDING";
-               //    audioBuffer = new byte[100000];
-               //    audRecorder.StartRecording();
-               //    audRecorder.Read(audioBuffer, 0, audioBuffer.Length);
-               //}
                _stop.Enabled = !_stop.Enabled;
                _start.Enabled = !_start.Enabled;
                audioBuffer = new byte[100000];
@@ -89,11 +72,11 @@ namespace Test1
 
                 throw;
             }
-           
+
         }
 
     }
 
-    }
+}
 
 

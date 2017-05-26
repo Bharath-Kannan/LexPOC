@@ -19,18 +19,15 @@ namespace Test1
             Stream stream = new MemoryStream(byteArray);
             try
             {
-                // PostContentRequest request = new PostContentRequest();
-                PostTextRequest request = new PostTextRequest();
+                PostContentRequest request = new PostContentRequest();
                 var response = new PostContentResponse();
                 request.BotAlias = "$LATEST";
                 request.BotName = "OrderFlowers";
                 request.UserId = "geethu95";
-                request.InputText = "i would like to order some flowers";
-               // request.Accept = "audio/mpeg";
-              //  request.ContentType = "audio/l16; rate=16000; channels=1";
-              //  request.InputStream = stream;
-               // response = await lex_client.PostContentAsync(request);
-               var resp= await lex_client.PostTextAsync(request);
+                request.Accept = "audio/mpeg";
+                request.ContentType = "audio/l16; rate=16000; channels=1";
+                request.InputStream = stream;
+                response = await lex_client.PostContentAsync(request);
                 var response_bytes = ConvertStreamToBytes(response.AudioStream);
                 return response_bytes;
 

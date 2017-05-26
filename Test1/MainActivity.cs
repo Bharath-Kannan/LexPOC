@@ -57,6 +57,7 @@ namespace Test1
            };
             _stop.Click += async delegate
             {
+                _start.Enabled = !_start.Enabled;
                 _stop.Enabled = !_stop.Enabled;
                 audRecorder.Stop();
                 var response_audio = await Authenticator.Main(audioBuffer);

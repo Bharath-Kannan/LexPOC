@@ -13,8 +13,8 @@ namespace Test1
         {
             #region variables
 
-            string accesskeyid = "AKIAJHYYM27C3VEXKFNQ";
-            string secretaccesskeyid = "ywh9ceZAbu5APUWtatH7LLq44MZ2c932dVUGfLlY";
+            string accesskeyid = "";
+            string secretaccesskeyid = "";
             var region = Amazon.RegionEndpoint.USEast1;
             var lex_client = new AmazonLexClient(accesskeyid, secretaccesskeyid, region);
             var byteArray = args;

@@ -45,6 +45,25 @@ namespace Test1
 			}
 		}
 		
+		public partial class Color
+		{
+			
+			// aapt resource value: 0x7f050000
+			public const int green = 2131034112;
+			
+			// aapt resource value: 0x7f050001
+			public const int red = 2131034113;
+			
+			static Color()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Color()
+			{
+			}
+		}
+		
 		public partial class Drawable
 		{
 			
@@ -64,11 +83,11 @@ namespace Test1
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f050000
-			public const int start = 2131034112;
+			// aapt resource value: 0x7f060000
+			public const int start = 2131099648;
 			
-			// aapt resource value: 0x7f050001
-			public const int stop = 2131034113;
+			// aapt resource value: 0x7f060001
+			public const int stop = 2131099649;
 			
 			static Id()
 			{

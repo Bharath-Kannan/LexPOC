@@ -5,6 +5,7 @@ using Android.OS;
 using Android.Media;
 using Java.IO;
 
+
 namespace Test1
 {
     [Activity(Label = "Test1", MainLauncher = true, Icon = "@drawable/icon")]
@@ -13,7 +14,6 @@ namespace Test1
         private MediaPlayer mediaPlayer = new MediaPlayer();
         Button _start;
         Button _stop;
-
         byte[] audioBuffer = new byte[100000];
         protected override void OnCreate(Bundle bundle)
         {
@@ -32,25 +32,41 @@ namespace Test1
 
             _start.Click += delegate
            {
-               _stop.Enabled = !_stop.Enabled;
-               _start.Enabled = !_start.Enabled;
-               audioBuffer = new byte[100000];
-               audRecorder.StartRecording();
-               audRecorder.Read(audioBuffer, 0, audioBuffer.Length);
+               try
+               {
+                   _stop.Enabled = !_stop.Enabled;
+                   _start.Enabled = !_start.Enabled;
+                   audRecorder.StartRecording();
+                   audRecorder.Read(audioBuffer, 0, audioBuffer.Length);
+               }
+               catch (Exception ex)
+               {
+                   throw ex;
+               }
+
            };
             _stop.Click += async delegate
             {
-                _start.Enabled = !_start.Enabled;
-                _stop.Enabled = !_stop.Enabled;
-                audRecorder.Stop();
-                var response_audio = await Authenticator.Main(audioBuffer);
-                audioBuffer = null;
-                PlayAudioTrack(response_audio);
+                try
+                {
+                    _start.Enabled = !_start.Enabled;
+                    _stop.Enabled = !_stop.Enabled;
+                    audRecorder.Stop();
+                    var response_audio = await Authenticator.Main(audioBuffer);
+                    audioBuffer = new byte[100000];
+                    PlayAudioTrack(response_audio);
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+
             };
         }
 
 
-        //play back the response
+        //Play back the response
         public void PlayAudioTrack(byte[] audio_response_Buffer)
         {
             try
@@ -67,10 +83,10 @@ namespace Test1
                 mediaPlayer.Start();
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
 
         }

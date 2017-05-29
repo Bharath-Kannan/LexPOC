@@ -11,12 +11,16 @@ namespace Test1
        
         public async static Task<byte[]> Main(byte [] args)
         {
+            #region variables
+
             string accesskeyid = "AKIAJHYYM27C3VEXKFNQ";
             string secretaccesskeyid = "ywh9ceZAbu5APUWtatH7LLq44MZ2c932dVUGfLlY";
             var region = Amazon.RegionEndpoint.USEast1;
             var lex_client = new AmazonLexClient(accesskeyid, secretaccesskeyid, region);
             var byteArray = args;
             Stream stream = new MemoryStream(byteArray);
+            #endregion
+           
             try
             {
                 PostContentRequest request = new PostContentRequest();
@@ -39,13 +43,28 @@ namespace Test1
             }
            
         }
-        //method to convert audio stream to bytes
+        //Method to convert audio stream to bytes
         public static byte[]  ConvertStreamToBytes(Stream stream)
         {
-            byte[] buffer = new byte[stream.Length];
-            for (int totalBytesCopied = 0; totalBytesCopied < stream.Length;)
-                totalBytesCopied += stream.Read(buffer, totalBytesCopied, Convert.ToInt32(stream.Length) - totalBytesCopied);
-            return buffer;
+            byte[] buff = new byte[100];
+            try
+            {
+                if (stream.Length > 0)
+                {
+                    byte[] buffer = new byte[stream.Length];
+                    for (int totalBytesCopied = 0; totalBytesCopied < (int)stream.Length;)
+                        totalBytesCopied += stream.Read(buffer, totalBytesCopied, (int)(stream.Length) - totalBytesCopied);
+                    return buffer;
+                }
+                else
+                    return buff;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+           
         
     }
 

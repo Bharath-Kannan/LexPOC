@@ -13,32 +13,40 @@ namespace Test1
         {
             #region variables
 
-            string accesskeyid = "";
-            string secretaccesskeyid = "";
+            string accesskeyid = "AKIAJIQWEYKT22HYFVKA";
+            string secretaccesskeyid = "ZD9Nn8j4zSMQs59wlJAxXs15fXdKP3GkaipSPouc";
             var region = Amazon.RegionEndpoint.USEast1;
             var lex_client = new AmazonLexClient(accesskeyid, secretaccesskeyid, region);
             var byteArray = args;
             Stream stream = new MemoryStream(byteArray);
             #endregion
-           
+
             try
             {
                 PostContentRequest request = new PostContentRequest();
                 var response = new PostContentResponse();
                 request.BotAlias = "$LATEST";
-                request.BotName = "OrderFlowers";
+                request.BotName = "OrderCake";
                 request.UserId = "geethu95";
                 request.Accept = "audio/mpeg";
                 request.ContentType = "audio/l16; rate=16000; channels=1";
                 request.InputStream = stream;
                 response = await lex_client.PostContentAsync(request);
-                var response_bytes = ConvertStreamToBytes(response.AudioStream);
-                return response_bytes;
+                if (response.AudioStream.Length >= 0)
+                {
+                    var response_bytes = ConvertStreamToBytes(response.AudioStream);
+                    return response_bytes;
+                }
+                else
+                {
+                    return null;
+                }
+                
 
             }
             catch (Exception ex)
             {
-
+                
                 throw;
             }
            
@@ -46,18 +54,12 @@ namespace Test1
         //Method to convert audio stream to bytes
         public static byte[]  ConvertStreamToBytes(Stream stream)
         {
-            byte[] buff = new byte[100];
             try
             {
-                if (stream.Length > 0)
-                {
-                    byte[] buffer = new byte[stream.Length];
+                byte[] buffer = new byte[stream.Length];
                     for (int totalBytesCopied = 0; totalBytesCopied < (int)stream.Length;)
                         totalBytesCopied += stream.Read(buffer, totalBytesCopied, (int)(stream.Length) - totalBytesCopied);
                     return buffer;
-                }
-                else
-                    return buff;
             }
             catch (Exception ex)
             {

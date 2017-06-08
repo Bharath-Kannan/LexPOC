@@ -3,13 +3,14 @@ using Amazon.Lex.Model;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Test1;
 
 namespace Test1
 {
     public class Authenticator
     {
        
-        public async static Task<byte[]> Main(byte [] args)
+        public async static Task<PostContentResponse> Main(byte [] args)
         {
             #region variables
 
@@ -32,16 +33,7 @@ namespace Test1
                 request.ContentType = "audio/l16; rate=16000; channels=1";
                 request.InputStream = stream;
                 response = await lex_client.PostContentAsync(request);
-                if (response.AudioStream.Length >= 0)
-                {
-                    var response_bytes = ConvertStreamToBytes(response.AudioStream);
-                    return response_bytes;
-                }
-                else
-                {
-                    return null;
-                }
-                
+                return response;
 
             }
             catch (Exception ex)

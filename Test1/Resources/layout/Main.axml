@@ -1,28 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/parentLayout"
+              android:background="@color/white"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_centerInParent="true"
     android:layout_height="match_parent">
+ 
     <Button
-        android:id="@+id/start"
-        android:layout_width="wrap_content"
+     android:id="@+id/start"
+      android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dip"
-        android:padding="20dip"
-        android:background="@color/green"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:text="Start Recording"
-        android:onClick="OnStart_Click"
-        />
-    <Button
+     android:text="Start Recording"
+       android:layout_marginTop="50dip"
+      android:layout_marginBottom="70dip"
+       android:padding="20dip"
+     android:background="@color/green"
+       android:layout_gravity="center_horizontal|center_vertical"
+       android:onClick="OnStart_Click" />
+  <ScrollView 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/scroll"
+    >
+   
+
+      <LinearLayout android:id="@+id/chat"
+   android:layout_width="match_parent"
+android:layout_height="match_parent"
+                     android:orientation="vertical"
+     ></LinearLayout>
+      
+
+  
+  </ScrollView>
+
+  <!--<TextView
+    android:id="@+id/request"
+     android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+    android:gravity="left"
+    android:padding="10dp"
+   
+    />-->
+  <!--<Button
         android:id="@+id/stop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+      
         android:layout_marginTop="50dip"
         android:padding="20dip"
         android:background="@color/red"
         android:layout_gravity="center_horizontal|center_vertical"
         android:enabled="false"
-        android:text="Stop Recording" />
+        android:text="Stop Recording" />-->
 </LinearLayout>

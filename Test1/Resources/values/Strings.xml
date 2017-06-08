@@ -4,4 +4,5 @@
     <string name="ApplicationName">Test1</string>
   <color name="green">#77d065</color>
   <color name="red">#992f2f</color>
+  <color name="white">#ffffff</color>
 </resources>

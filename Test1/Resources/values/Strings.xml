@@ -4,5 +4,7 @@
     <string name="ApplicationName">Test1</string>
   <color name="green">#77d065</color>
   <color name="red">#992f2f</color>
-  <color name="white">#ffffff</color>
+  <color name="light_grey">#333333</color>
+  <color name="response_foreground">#333333</color>
+  <color name="response_background">#fcfcfc</color>
 </resources>

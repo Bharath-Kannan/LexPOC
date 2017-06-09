@@ -15,47 +15,48 @@ namespace Test1
     [Activity(Label = "Test1", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
+        #region variable declaration
         private MediaPlayer mediaPlayer = new MediaPlayer();
-        Android.Widget.Button _start;
+        ImageButton _start;
+        ImageButton _clear;
         byte[] audioBuffer = new byte[100000];
-        TextView[] textViewArray = new TextView[20];
-        int textcount = 0;
-        LinearLayout main;
+        LinearLayout main, chat;
         ScrollView content;
-        LinearLayout chat;
-       
+        TextView record_text;
+        #endregion
+
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
-          
-            _start = FindViewById<Android.Widget.Button>(Resource.Id.start);
+
+            #region initialization
+            _start = FindViewById<Android.Widget.ImageButton>(Resource.Id.start);
+            _clear = FindViewById<ImageButton>(Resource.Id.clear);
+            record_text = FindViewById<TextView>(Resource.Id.recordText);
             main = FindViewById<LinearLayout>(Resource.Id.parentLayout);
             chat = FindViewById<LinearLayout>(Resource.Id.chat);
             content = FindViewById<ScrollView>(Resource.Id.scroll);
-            var fromLayoutParams = new LinearLayout.LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
-            var toLayoutParams = new LinearLayout.LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
-
+            content.PageScroll(FocusSearchDirection.Up);
+            var requestLayout = new LinearLayout.LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
+            var responseLayout = new LinearLayout.LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
             var audRecorder = new AudioRecord(AudioSource.Mic, 11025, ChannelIn.Mono, Encoding.Pcm16bit, audioBuffer.Length);
-            for (int i = 0; i < 20; i++)
-            {
-                
-                textViewArray[i] = new TextView(this);
-                textViewArray[i].SetPadding(50,30,50,30);
-               chat.AddView(textViewArray[i]);
-               
-            }
-            
+            #endregion
 
-            _start.Click += async delegate
+            _clear.Click += delegate
+           {
+               if (chat.ChildCount > 0)
+                   chat.RemoveAllViews();
+           };
+                _start.Click += async delegate
           {
               if(audRecorder.RecordingState==RecordState.Stopped) 
               {
-                  _start.Text = "STOP RECORDING";
+                  _start.SetImageResource(Resource.Drawable.stop);
                   try
                   {
-                      
+                      record_text.Visibility = Android.Views.ViewStates.Visible;
                       audRecorder.StartRecording();
                       await Task.Factory.StartNew(() => audRecorder.Read(audioBuffer, 0, audioBuffer.Length));
                   }
@@ -68,32 +69,35 @@ namespace Test1
               {
                   try
                   {
-                      _start.Text = "START RECORDING";                      
+                      record_text.Visibility = Android.Views.ViewStates.Invisible;
+                      _start.SetImageResource(Resource.Drawable.start);
                       audRecorder.Stop();
-                      PostContentResponse response= await Authenticator.Main(audioBuffer);
+                      PostContentResponse response = await Authenticator.Main(audioBuffer);
                       System.IO.Stream response_audio_stream = response.AudioStream;
-
-
-                      fromLayoutParams.SetMargins(10, 10, 10, 10);
-                      fromLayoutParams.Gravity = GravityFlags.Left; 
-                      textViewArray[textcount].LayoutParameters = fromLayoutParams;
-                      textViewArray[textcount].Text = response.InputTranscript;
+                      requestLayout.SetMargins(20, 10, 10, 10);
+                      requestLayout.Gravity = GravityFlags.Left;
+                      TextView request_Text = new TextView(this);
+                      request_Text.LayoutParameters = requestLayout;
+                      request_Text.Text = response.InputTranscript;
                       GradientDrawable request = new GradientDrawable();
-                      request.SetCornerRadius(10);
+                      request.SetCornerRadius(50);
+                      request_Text.SetPadding(50, 30, 50, 30);
                       request.SetColor(global::Android.Graphics.Color.ParseColor("#1E90FF"));
-                      textViewArray[textcount].Background = request;
-                      textcount++;
+                      request_Text.Background = request;
+                      chat.AddView(request_Text);
 
-                      toLayoutParams.SetMargins(10, 10, 10, 10);
-                      toLayoutParams.Gravity = GravityFlags.Right;
-                      textViewArray[textcount].LayoutParameters = toLayoutParams;
-                      textViewArray[textcount].Text = response.Message;
-                     
+                      responseLayout.SetMargins(10, 10, 10, 10);
+                      responseLayout.Gravity = GravityFlags.Right;
+                      TextView response_Text = new TextView(this);
+                      response_Text.LayoutParameters = responseLayout;
+                      response_Text.Text = response.Message;
                       GradientDrawable reply = new GradientDrawable();
-                      reply.SetCornerRadius(10);
-                      reply.SetColor(global::Android.Graphics.Color.ParseColor("#696969"));
-                      textViewArray[textcount].Background = reply;
-                      textcount++;
+                      reply.SetCornerRadius(50);
+                      response_Text.SetPadding(50, 30, 50, 30);
+                      reply.SetColor(global::Android.Graphics.Color.ParseColor("#FCFCFC"));
+                      response_Text.SetTextColor(global::Android.Graphics.Color.ParseColor("#333333"));
+                      response_Text.Background = reply;
+                      chat.AddView(response_Text);
                       Array.Clear(audioBuffer, 0, audioBuffer.Length);
                       if (response_audio_stream.Length== -1)//If no audio response
                       {

@@ -51,11 +51,17 @@ namespace Test1
 			// aapt resource value: 0x7f050000
 			public const int green = 2131034112;
 			
+			// aapt resource value: 0x7f050002
+			public const int light_grey = 2131034114;
+			
 			// aapt resource value: 0x7f050001
 			public const int red = 2131034113;
 			
-			// aapt resource value: 0x7f050002
-			public const int white = 2131034114;
+			// aapt resource value: 0x7f050004
+			public const int response_background = 2131034116;
+			
+			// aapt resource value: 0x7f050003
+			public const int response_foreground = 2131034115;
 			
 			static Color()
 			{
@@ -71,10 +77,16 @@ namespace Test1
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int Icon = 2130837504;
+			public const int clear = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int micButton = 2130837505;
+			public const int Icon = 2130837505;
+			
+			// aapt resource value: 0x7f020002
+			public const int start = 2130837506;
+			
+			// aapt resource value: 0x7f020003
+			public const int stop = 2130837507;
 			
 			static Drawable()
 			{
@@ -89,14 +101,20 @@ namespace Test1
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060003
-			public const int chat = 2131099651;
+			// aapt resource value: 0x7f060004
+			public const int chat = 2131099652;
+			
+			// aapt resource value: 0x7f060005
+			public const int clear = 2131099653;
 			
 			// aapt resource value: 0x7f060000
 			public const int parentLayout = 2131099648;
 			
 			// aapt resource value: 0x7f060002
-			public const int scroll = 2131099650;
+			public const int recordText = 2131099650;
+			
+			// aapt resource value: 0x7f060003
+			public const int scroll = 2131099651;
 			
 			// aapt resource value: 0x7f060001
 			public const int start = 2131099649;

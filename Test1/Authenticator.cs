@@ -1,13 +1,13 @@
 using Amazon.Lex;
 using Amazon.Lex.Model;
-using System;
+using System;    
 using System.IO;
 using System.Threading.Tasks;
-using Test1;
+using LexPOC;
 
-namespace Test1
+namespace LexPOC
 {
-    public class Authenticator
+    public class AWSLexConnector
     {
        
         public async static Task<PostContentResponse> Main(byte [] args)

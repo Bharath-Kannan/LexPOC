@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("Test1.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("LexPOC.Resource", IsApplication=true)]
 
-namespace Test1
+namespace LexPOC
 {
 	
 	
@@ -26,10 +26,10 @@ namespace Test1
 		
 		public static void UpdateIdValues()
 		{
-			global::PCLCrypto.Resource.String.ApplicationName = global::Test1.Resource.String.ApplicationName;
-			global::PCLCrypto.Resource.String.Hello = global::Test1.Resource.String.Hello;
-			global::PCLStorage.Resource.String.ApplicationName = global::Test1.Resource.String.ApplicationName;
-			global::PCLStorage.Resource.String.Hello = global::Test1.Resource.String.Hello;
+			global::PCLCrypto.Resource.String.ApplicationName = global::LexPOC.Resource.String.ApplicationName;
+			global::PCLCrypto.Resource.String.Hello = global::LexPOC.Resource.String.Hello;
+			global::PCLStorage.Resource.String.ApplicationName = global::LexPOC.Resource.String.ApplicationName;
+			global::PCLStorage.Resource.String.Hello = global::LexPOC.Resource.String.Hello;
 		}
 		
 		public partial class Attribute
@@ -77,16 +77,19 @@ namespace Test1
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int clear = 2130837504;
+			public const int buttonStyle = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int Icon = 2130837505;
+			public const int clear = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int start = 2130837506;
+			public const int Icon = 2130837506;
 			
 			// aapt resource value: 0x7f020003
-			public const int stop = 2130837507;
+			public const int start = 2130837507;
+			
+			// aapt resource value: 0x7f020004
+			public const int stop = 2130837508;
 			
 			static Drawable()
 			{
@@ -101,23 +104,23 @@ namespace Test1
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060004
-			public const int chat = 2131099652;
+			// aapt resource value: 0x7f060003
+			public const int chat = 2131099651;
 			
-			// aapt resource value: 0x7f060005
-			public const int clear = 2131099653;
+			// aapt resource value: 0x7f060004
+			public const int clear = 2131099652;
 			
 			// aapt resource value: 0x7f060000
 			public const int parentLayout = 2131099648;
 			
-			// aapt resource value: 0x7f060002
-			public const int recordText = 2131099650;
-			
-			// aapt resource value: 0x7f060003
-			public const int scroll = 2131099651;
-			
 			// aapt resource value: 0x7f060001
-			public const int start = 2131099649;
+			public const int recordText = 2131099649;
+			
+			// aapt resource value: 0x7f060002
+			public const int scroll = 2131099650;
+			
+			// aapt resource value: 0x7f060005
+			public const int start = 2131099653;
 			
 			static Id()
 			{

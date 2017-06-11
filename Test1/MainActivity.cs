@@ -10,15 +10,15 @@ using static Android.Views.ViewGroup;
 using Android.Views;
 using Android.Graphics.Drawables;
 
-namespace Test1
+namespace LexPOC
 {
-    [Activity(Label = "Test1", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "OrderCake", MainLauncher = true, Icon = "@drawable/Icon")]
     public class MainActivity : Activity
     {
         #region variable declaration
         private MediaPlayer mediaPlayer = new MediaPlayer();
         ImageButton _start;
-        ImageButton _clear;
+        Android.Widget.Button _clear;
         byte[] audioBuffer = new byte[100000];
         LinearLayout main, chat;
         ScrollView content;
@@ -33,7 +33,7 @@ namespace Test1
 
             #region initialization
             _start = FindViewById<Android.Widget.ImageButton>(Resource.Id.start);
-            _clear = FindViewById<ImageButton>(Resource.Id.clear);
+            _clear = FindViewById<Android.Widget.Button>(Resource.Id.clear);
             record_text = FindViewById<TextView>(Resource.Id.recordText);
             main = FindViewById<LinearLayout>(Resource.Id.parentLayout);
             chat = FindViewById<LinearLayout>(Resource.Id.chat);
@@ -56,6 +56,7 @@ namespace Test1
                   _start.SetImageResource(Resource.Drawable.stop);
                   try
                   {
+                   
                       record_text.Visibility = Android.Views.ViewStates.Visible;
                       audRecorder.StartRecording();
                       await Task.Factory.StartNew(() => audRecorder.Read(audioBuffer, 0, audioBuffer.Length));
@@ -69,10 +70,11 @@ namespace Test1
               {
                   try
                   {
+
                       record_text.Visibility = Android.Views.ViewStates.Invisible;
                       _start.SetImageResource(Resource.Drawable.start);
                       audRecorder.Stop();
-                      PostContentResponse response = await Authenticator.Main(audioBuffer);
+                      PostContentResponse response = await AWSLexConnector.Main(audioBuffer);
                       System.IO.Stream response_audio_stream = response.AudioStream;
                       requestLayout.SetMargins(20, 10, 10, 10);
                       requestLayout.Gravity = GravityFlags.Left;
@@ -85,8 +87,9 @@ namespace Test1
                       request.SetColor(global::Android.Graphics.Color.ParseColor("#1E90FF"));
                       request_Text.Background = request;
                       chat.AddView(request_Text);
-
-                      responseLayout.SetMargins(10, 10, 10, 10);
+                      if (response.Message!=null)
+                      { 
+                          responseLayout.SetMargins(10, 10, 10, 10);
                       responseLayout.Gravity = GravityFlags.Right;
                       TextView response_Text = new TextView(this);
                       response_Text.LayoutParameters = responseLayout;
@@ -98,6 +101,7 @@ namespace Test1
                       response_Text.SetTextColor(global::Android.Graphics.Color.ParseColor("#333333"));
                       response_Text.Background = reply;
                       chat.AddView(response_Text);
+                  }
                       Array.Clear(audioBuffer, 0, audioBuffer.Length);
                       if (response_audio_stream.Length== -1)//If no audio response
                       {
@@ -121,10 +125,24 @@ namespace Test1
                           });
                           Dialog dialog = alert.Create();
                           dialog.Show();
+
+                          responseLayout.SetMargins(10, 10, 10, 10);
+                          responseLayout.Gravity = GravityFlags.Right;
+                          TextView final_text = new TextView(this);
+                          final_text.LayoutParameters = responseLayout;
+                         var fulfill= response.Slots.Replace("{", string.Empty).Replace("}", string.Empty).Replace("\"", String.Empty).Replace(",", "\n");
+                          final_text.Text = "Your Order has been placed \n" + fulfill;
+                          GradientDrawable final = new GradientDrawable();
+                          final.SetCornerRadius(50);
+                          final_text.SetPadding(50, 30, 50, 30);
+                          final.SetColor(global::Android.Graphics.Color.ParseColor("#FCFCFC"));
+                          final_text.SetTextColor(global::Android.Graphics.Color.ParseColor("#333333"));
+                          final_text.Background = final;
+                          chat.AddView(final_text);
                       }
                       else
                       {
-                          var response_audio = Authenticator.ConvertStreamToBytes(response_audio_stream);
+                          var response_audio = AWSLexConnector.ConvertStreamToBytes(response_audio_stream);
                           PlayAudioTrack(response_audio);
                       }
                   }
